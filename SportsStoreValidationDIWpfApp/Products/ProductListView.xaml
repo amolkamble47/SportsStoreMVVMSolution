@@ -1,0 +1,88 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SportsStoreValidationDIWpfApp.Products"
+             xmlns:conv="clr-namespace:SportsStoreValidationDIWpfApp.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="SportsStoreValidationDIWpfApp.Products.ProductListView"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="700">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoadProducts"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <conv:NegatableBooleanToVisibilityConverter x:Key="VisConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="3, 3, 3, 0">
+                <Button Command="{Binding AddNewProductCommand}" Content="Add New Product" Height="25" Width="120"/>
+                <Border BorderThickness="1,1,2,2" BorderBrush="Black" Margin="3, 0, 0, 0">
+                    <Label Content="Search:" HorizontalContentAlignment="Right" Height="25" Width="50"/>
+                </Border>
+                <TextBox Text="{Binding SearchInput, UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="3, 0, 0, 0"/>
+                <Button Command="{Binding ClearSearchCommand}" Content="X"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="3, 3, 3, 0">
+                <StackPanel>
+                    <Border BorderBrush="DarkOrchid" BorderThickness="2" CornerRadius="2">
+                        <TextBlock Text="Categories" Height="25" Padding="0, 3, 0, 0" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ListBox ItemsSource="{Binding Categories}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button Height="25" Width="120" Margin="0, 3, 3, 0"
+                                        Content="{Binding}"
+                                        Command="{Binding DataContext.CategoryCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                        CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel Margin="3, 0, 0, 0">
+                    <Border BorderBrush="DarkOrchid" BorderThickness="2" CornerRadius="2">
+                        <TextBlock Text="Product List"  Height="25" Padding="0, 3, 0, 0"  TextAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel Orientation="Horizontal" Width="auto"  Visibility="{Binding MessageFlag, Converter={StaticResource VisConverter}}">
+                        <Border BorderBrush="DarkOrchid" BorderThickness="2" CornerRadius="2">
+                            <TextBlock Text="{Binding DisplayMessage}"  Height="25" Padding="0, 3, 0, 0"  TextAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <Button Command="{Binding DismissMessageCommand}" Content="Dismiss" Height="25"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding Products}" AutoGenerateColumns="False" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="Auto"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="Auto"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="Auto"/>
+                            <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="Auto"/>
+                            <DataGridTemplateColumn Header="Action" Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Edit"
+                                            Command="{Binding DataContext.EditProductCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding}"
+                                            Margin="3"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Action" Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Delete"
+                                            Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding}"
+                                            Margin="3"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

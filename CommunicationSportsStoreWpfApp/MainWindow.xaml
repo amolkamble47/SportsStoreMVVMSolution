@@ -1,0 +1,40 @@
+﻿<Window x:Class="CommunicationSportsStoreWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommunicationSportsStoreWpfApp"
+        xmlns:products="clr-namespace:CommunicationSportsStoreWpfApp.Products"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="900">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type products:ProductAttachedBehaviorListViewModel}">
+            <products:ProductAttachedBehaviorListView/>
+        </DataTemplate>
+        <!--<DataTemplate DataType="{x:Type products:ProductCommandListViewModel}">
+            <products:ProductCommandListView/>
+        </DataTemplate>-->
+    </Window.Resources>
+    
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <!--Custom Behavior Does Not work-->
+            <ContentControl Grid.Row="0">
+                <i:Interaction.Behaviors>
+                    <local:ShowNotificationMessageBehavior DisplayMessage="{Binding DataContext.DispMessage}"/>
+                </i:Interaction.Behaviors>
+            </ContentControl>
+            <ContentControl Content="{Binding CurrentViewModel}" Grid.Row="1"/>
+        </Grid>
+    </ScrollViewer>
+</Window>

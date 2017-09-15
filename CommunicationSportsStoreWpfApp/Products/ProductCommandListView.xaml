@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="CommunicationSportsStoreWpfApp.Products.ProductCommandListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CommunicationSportsStoreWpfApp.Products"
+             xmlns:prod="clr-namespace:SportsStoreDomainLibrary.Entities;assembly=SportsStoreDomainLibrary"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.DataContext>
+        <local:ProductCommandListViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type prod:Product}">
+            <Border BorderBrush="RosyBrown" BorderThickness="2" CornerRadius="2" Margin="0,2,0,0" MinWidth="300">
+                <StackPanel>
+                    <TextBlock Text="{Binding ProductName}"/>
+                    <TextBlock Text="{Binding Description}"/>
+                    <TextBlock Text="{Binding Price}"/>
+                    <TextBlock Text="{Binding Category}"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <Border BorderBrush="Aquamarine"  BorderThickness="2" CornerRadius="3">
+                <TextBlock Text="Communication - Products List Commmad" TextAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Delete" Command="{Binding DeleteCommand}" Background="Red" Foreground="White" Width="120" HorizontalAlignment="Left"/>
+                <Border BorderBrush="Red"  BorderThickness="2" CornerRadius="3" Margin="3, 0, 0, 0">
+                    <TextBlock Text="{Binding DisplayMessage}"/>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <DataGrid x:Name="productDataGrid" ItemsSource="{Binding Products}"
+                          SelectedItem="{Binding SelectedProduct}"
+                          AutoGenerateColumns="False" EnableRowVirtualization="True"
+                          RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="productName"
+                                    Header="Product Name"
+                                    Width="auto"
+                                    Binding="{Binding ProductName}"/>
+                        <DataGridTextColumn x:Name="description"
+                                    Header="Description"
+                                    Width="auto"
+                                    Binding="{Binding Description}"/>
+                        <DataGridTextColumn x:Name="price"
+                                    Header="Price"
+                                    Width="SizeToHeader"
+                                    Binding="{Binding Price}"/>
+                        <DataGridTextColumn x:Name="category"
+                                    Header="Category"
+                                    Binding="{Binding Category}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <ListBox ItemsSource="{Binding Products}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

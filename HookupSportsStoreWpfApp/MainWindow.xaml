@@ -1,0 +1,65 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HookupSportsStoreWpfApp"
+        xmlns:Products="clr-namespace:HookupSportsStoreWpfApp.Products"
+        xmlns:VMFProducts="clr-namespace:HookupSportsStoreWpfApp.ViewModelFirstProducts"
+        x:Class="HookupSportsStoreWpfApp.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="900">
+    <!--Fifth-->
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type VMFProducts:ProductsListViewModel}">
+            <VMFProducts:ProductsListView/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <!--Fifth with MainWindowViewModel-->
+        <Grid>
+            <ContentControl Content="{Binding CurrentViewModel}"/> <!--This will only give the Namespace and class name add a resourse to the Window a DataTemplate--> 
+        </Grid>
+
+        <!--Fourth ViewModel First-->
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <VMFProducts:ProductsListView Grid.Row="0"/>
+        </Grid>-->
+
+        <!--Third-->
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Products:ProductListDataBindingView Grid.Row="0"/>
+        </Grid>-->
+
+        <!--Second-->
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80*" />
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Products:ProductListAutoWireView Grid.Row="0"/>
+            <Products:CatView Grid.Row="1"/>
+        </Grid>-->
+        
+        <!--First-->
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80*" />
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Products:ProductListView Grid.Row="0"/>
+        </Grid>-->
+
+
+    </ScrollViewer>
+</Window>

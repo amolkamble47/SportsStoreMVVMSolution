@@ -1,0 +1,45 @@
+SportsStoreDomainLibrary
+	Nuget Packages
+		1. Install-Package EntityFramework
+
+BasicSportsStoreWpfApp
+	Nuget Packages
+		1. Install-Package EntityFramework
+
+HookupSportsStoreWpfApp
+	Nuget Packages
+		1. Install-Package EntityFramework
+		Class RelayCommand
+
+CommunicationSportsStoreWpfApp
+	Nuget Packages
+		1. Install-Package EntityFramework
+		Class RelayCommand
+
+SportsStoreHierachyNavWpfApp
+	Nuget Packages
+		1. Install-Package EntityFramework
+		Class RelayCommand
+		Class BindableBase
+
+SportsStoreValidDIWpfApp
+	Nuget Packages
+		1. Install-Package EntityFramework
+		2. Install-Package Unity
+		Class RelayCommand
+		Class BindableBase
+		Class ValidatableBindableBase
+		Converters
+			Class NegatableBooleanToVisibilityConverter
+
+
+ConnectionString
+  <connectionStrings>
+    <add name="SportsStoreConnection" providerName="System.Data.SqlClient" connectionString="Server=(LocalDb)\MSSQLLocalDb; Initial Catalog=MultiDb; Integrated Security=true;"/>
+  </connectionStrings>
+
+  Read 
+  1. BasicSportsStoreWpfApp
+  2. HookupSportsStoreWpfApp
+  3. SportsStoreValidationDIWpfApp
+
